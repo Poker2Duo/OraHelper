@@ -25,12 +25,10 @@
     {
       "resources": ["styles.css"],
       "matches": ["<all_urls>"]
+    },
+    {
+      "resources": ["oauth2callback.html"],
+      "matches": ["<all_urls>"]
     }
-    // {
-    // "resources": ["oauth2callback.html"],
-    // "matches": [
-    //   "chrome-extension://jfofphgfbmedpjhgjcgnjjnkdgkkfhok/oauth2callback"
-    // ]
-    //}
   ]
 }
