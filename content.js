@@ -77,7 +77,6 @@ function createAddToOraButton() {
     form.addEventListener("submit", function (event) {
       event.preventDefault();
       const formData = new FormData(form);
-      // Обработка отправки формы или отправка данных через sendMessage
       modal.remove();
       document.body.classList.remove("modal-open");
     });
