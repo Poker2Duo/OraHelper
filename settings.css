@@ -1,0 +1,84 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  padding: 0;
+  background-color: #f5f5f5;
+}
+
+.container {
+  width: 300px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.container h1 {
+  font-size: 20px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.container label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.container select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 15px;
+}
+
+.container button {
+  padding: 10px 20px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.container button#save {
+  background-color: #4caf50;
+  color: white;
+}
+
+.container button#save:hover {
+  background-color: #45a049;
+}
+
+.container button#refreshProjects {
+  background-color: #3498db;
+  color: white;
+}
+
+.container button#refreshProjects:hover {
+  background-color: #2980b9;
+}
+
+.container button#refreshLists {
+  background-color: #f39c12;
+  color: white;
+}
+
+.container button#refreshLists:hover {
+  background-color: #d68910;
+}
+
+#projectDetails {
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  min-height: 100px;
+}
+
+#projectDetails pre {
+  margin: 0;
+  font-family: monospace;
+  white-space: pre-wrap;
+}

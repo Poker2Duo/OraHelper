@@ -2,46 +2,63 @@ document.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById("authorizationForm");
   const clientIdInput = document.getElementById("clientId");
   const clientSecretInput = document.getElementById("clientSecret");
-  // ... остальные элементы формы, если есть
 
-  // Получение сохраненных значений из хранилища
-  chrome.storage.sync.get(["clientId", "clientSecret"], function (data) {
+  chrome.storage.local.get(["clientId", "clientSecret"], function (data) {
     clientIdInput.value = data.clientId || "";
     clientSecretInput.value = data.clientSecret || "";
-    // ... остальные сохраненные данные, если есть
   });
 
-  // Функция сохранения данных при внесении изменений в инпуты
   clientIdInput.addEventListener("input", saveDataToStorage);
   clientSecretInput.addEventListener("input", saveDataToStorage);
-  // ... обработчики других инпутов
 
   form.addEventListener("submit", function (event) {
     event.preventDefault();
-    console.log("Form submitted");
 
-    // Отправка запроса на авторизацию
     const clientId = clientIdInput.value;
     const clientSecret = clientSecretInput.value;
-    // ... остальные данные формы
-    const authorizeUrl = `https://app.ora.pm/authorize?response_type=code&client_id=${clientId}&redirect_uri=chrome-extension://jfofphgfbmedpjhgjcgnjjnkdgkkfhok/oauth2callback.html`;
-    chrome.tabs.create({ url: authorizeUrl });
-    // Здесь нужно отправить запрос на авторизацию
-    // Используйте fetch или другие методы для отправки данных на сервер
-    // ...
+
+    chrome.storage.local.set(
+      {
+        clientId: clientId,
+        clientSecret: clientSecret,
+      },
+      function () {
+        const authorizeUrl = `https://app.ora.pm/authorize?response_type=code&client_id=${clientId}&redirect_uri=chrome-extension://jfofphgfbmedpjhgjcgnjjnkdgkkfhok/oauth2callback.html`;
+        chrome.tabs.create({ url: authorizeUrl });
+      }
+    );
   });
 
-  // Функция сохранения данных в хранилище
   function saveDataToStorage() {
-    chrome.storage.sync.set(
+    chrome.storage.local.set(
       {
         clientId: clientIdInput.value,
         clientSecret: clientSecretInput.value,
-        // ... другие сохраняемые данные
       },
       function () {
         console.log("Data saved to chrome.storage");
       }
     );
   }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  const settingsButton = document.getElementById("settingsButton");
+
+  // Проверка наличия токена при загрузке popup
+  chrome.storage.local.get("access_token", function (data) {
+    const accessToken = data.access_token;
+
+    if (accessToken) {
+      settingsButton.style.display = "block";
+    } else {
+      settingsButton.style.display = "none";
+    }
+  });
+
+  // Добавление обработчика для кнопки настроек
+  settingsButton.addEventListener("click", function () {
+    // Переход на страницу настроек
+    chrome.tabs.create({ url: "settings.html" });
+  });
 });

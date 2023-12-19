@@ -3,12 +3,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const code = params.get("code");
 
   if (code) {
-    // Получаем client_id и client_secret из хранилища расширения
-    chrome.storage.local.get(["client_id", "client_secret"], function (data) {
-      const clientId = data.client_id;
-      const clientSecret = data.client_secret;
+    chrome.storage.local.get(["clientId", "clientSecret"], function (data) {
+      const clientId = data.clientId;
+      const clientSecret = data.clientSecret;
 
-      // Проверяем, есть ли сохраненные client_id и client_secret
       if (clientId && clientSecret) {
         const redirectUri =
           "chrome-extension://jfofphgfbmedpjhgjcgnjjnkdgkkfhok/oauth2callback.html";
@@ -30,9 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
         })
           .then((response) => response.json())
           .then((data) => {
-            // Обработка полученного токена
             console.log(data);
-            // Сохранение токена в хранилище расширения
             chrome.storage.local.set(
               { access_token: data.access_token },
               function () {
@@ -40,7 +36,6 @@ document.addEventListener("DOMContentLoaded", function () {
               }
             );
 
-            // Закрытие вкладки после получения токена
             window.close();
           })
           .catch((error) => {
