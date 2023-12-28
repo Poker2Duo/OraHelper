@@ -77,6 +77,24 @@ function createAddToOraButton() {
     form.addEventListener("submit", function (event) {
       event.preventDefault();
       const formData = new FormData(form);
+
+      // Log the form data to the console
+      for (var value of formData.values()) {
+        console.log(value);
+      }
+
+      // Get the project ID and list ID from Chrome's local storage
+      chrome.storage.local.get(
+        ["selectedProjectId", "selectedListId"],
+        function (result) {
+          const projectId = result.selectedProjectId;
+          const listId = result.selectedListId;
+
+          // Send the data to the Ora.pm project
+          sendDataToOra(formData, projectId, listId);
+        }
+      );
+
       modal.remove();
       document.body.classList.remove("modal-open");
     });
@@ -88,6 +106,48 @@ function createAddToOraButton() {
         document.removeEventListener("click", closeOnOutsideClick);
       }
     });
+  });
+}
+
+// Function to send data to Ora.pm project
+function sendDataToOra(data, projectId, listId) {
+  // Get the access token from Chrome's local storage
+  chrome.storage.local.get("access_token", function (result) {
+    const accessToken = result.access_token;
+
+    // Construct the request body
+    const stringifiedFormData = Array.from(data.entries()).join("\n");
+    let markdownTable = `
+| Key | Value |
+|---|---|
+`;
+
+    for (const [key, value] of data.entries()) {
+      markdownTable += `| ${key} | ${value} |\n`;
+    }
+
+    console.log(markdownTable);
+    const body = {
+      title: `${data.get("company")} | ${data.get("position")}`,
+      description: markdownTable,
+    };
+    console.log(body);
+    // Send a POST request to the Ora.pm API
+    fetch(`https://api.ora.pm/projects/${projectId}/lists/${listId}/tasks`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Data sent to Ora.pm:", data);
+      })
+      .catch((error) => {
+        console.error("Error sending data to Ora.pm:", error);
+      });
   });
 }
 
