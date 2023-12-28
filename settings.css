@@ -50,35 +50,64 @@ body {
   background-color: #45a049;
 }
 
-.container button#refreshProjects {
+.container button#delete {
+  background-color: #d32f2f;
+  color: white;
+}
+
+.container button#delete:hover {
+  background-color: #c62828;
+}
+
+.container button#refreshLists {
   background-color: #3498db;
   color: white;
 }
 
-.container button#refreshProjects:hover {
+.container button#refreshLists:hover {
   background-color: #2980b9;
 }
 
-.container button#refreshLists {
-  background-color: #f39c12;
-  color: white;
-}
-
-.container button#refreshLists:hover {
-  background-color: #d68910;
-}
-
-#projectDetails {
+#savedSettings {
   margin-top: 20px;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
   background-color: #fff;
-  min-height: 100px;
 }
 
-#projectDetails pre {
-  margin: 0;
-  font-family: monospace;
-  white-space: pre-wrap;
+#savedSettings h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+#savedSettings ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+#savedSettings li {
+  margin-bottom: 10px;
+}
+
+#savedSettings span {
+  font-weight: bold;
+}
+
+#message {
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+}
+
+#message.success {
+  color: #4caf50;
+  border-color: #4caf50;
+}
+
+#message.error {
+  color: #d32f2f;
+  border-color: #d32f2f;
 }
