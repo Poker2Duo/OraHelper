@@ -109,14 +109,10 @@ function createAddToOraButton() {
   });
 }
 
-// Function to send data to Ora.pm project
 function sendDataToOra(data, projectId, listId) {
-  // Get the access token from Chrome's local storage
   chrome.storage.local.get("access_token", function (result) {
     const accessToken = result.access_token;
 
-    // Construct the request body
-    const stringifiedFormData = Array.from(data.entries()).join("\n");
     let markdownTable = `
 | Key | Value |
 |---|---|
@@ -132,7 +128,7 @@ function sendDataToOra(data, projectId, listId) {
       description: markdownTable,
     };
     console.log(body);
-    // Send a POST request to the Ora.pm API
+
     fetch(`https://api.ora.pm/projects/${projectId}/lists/${listId}/tasks`, {
       method: "POST",
       headers: {
