@@ -1,15 +1,15 @@
 {
   "manifest_version": 3,
-  "name": "MyExtension",
+  "name": "Just Job Search Assistant",
   "version": "1.0",
-  "description": "Описание вашего расширения",
+  "description": "Just Job Search Assistant is a comprehensive and efficient Chrome extension designed to streamline and simplify the job application process across multiple platforms. With a focus on user convenience, this extension seamlessly integrates with leading job search websites like rabota.ua and djinni.co, consolidating job listings into a single, intuitive workboard.",
   "permissions": ["tabs", "storage"],
   "action": {
     "default_popup": "popup.html",
-    "default_icon": "images/icon128.png"
+    "default_icon": "images/icon.png"
   },
   "icons": {
-    "192": "images/icon128.png"
+    "192": "images/icon.png"
   },
   "background": {
     "service_worker": "background.js"

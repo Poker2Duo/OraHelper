@@ -15,7 +15,7 @@ function createAddToOraButton() {
 
     const positionSelector = 'h1.santa-typo-h3[data-id="vacancy-title"]';
     const companySelector = "div.santa-mr-10 > a > span";
-    const salarySelector = 'span[_ngcontent-app-desktop-c92=""]';
+    const salarySelector = '[data-id="vacancy-salary-from-to"]';
     const recruiterSelector = '[data-id="vacancy-contact-name"]';
 
     const position =
